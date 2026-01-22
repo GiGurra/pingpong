@@ -1,10 +1,26 @@
-# PingPong
+# pingpong
 
-A simple CLI tool to test port forwarding configuration when playing games together online.
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://gigurra.github.io/pingpong/)
 
-## What does it do?
+Simple CLI tool to test port forwarding for multiplayer gaming.
 
-PingPong helps you verify that port forwarding is set up correctly before starting a multiplayer gaming session. One player runs the `listen` command to act as a server, while another player uses the `ping` command to test if they can reach the server through the forwarded port.
+## The Problem
+
+You want to host a game server, but you're not sure if your port forwarding is working. Your friend tries to connect and it fails - but is it the port forwarding, the firewall, or something else?
+
+## The Solution
+
+Test the port before starting the game:
+
+```bash
+# You (the host)
+pingpong listen --conn-type tcp --port 25565
+
+# Your friend
+pingpong ping --conn-type tcp --addr YOUR_PUBLIC_IP --port 25565
+```
+
+If it works, you'll see "pong" - your port forwarding is good!
 
 ## Installation
 
@@ -12,90 +28,41 @@ PingPong helps you verify that port forwarding is set up correctly before starti
 go install github.com/gigurra/pingpong@latest
 ```
 
-Or build from source:
+## Quick Start
+
+### Host (Server)
 
 ```bash
-git clone https://github.com/gigurra/pingpong.git
-cd pingpong
-go build
-```
-
-## Usage
-
-### Server Mode (Host)
-
-The player hosting the game runs the listener to accept incoming connections:
-
-```bash
-# Listen on TCP port 25565
+# TCP (Minecraft, most games)
 pingpong listen --conn-type tcp --port 25565
 
-# Listen on UDP port 27015
-pingpong listen --conn-type udp --port 27015
-```
-
-Make sure to:
-1. Configure port forwarding on your router for the specified port
-2. Allow the port through your firewall
-3. Share your public IP address with the other player
-
-### Client Mode (Tester)
-
-The other player tests if they can reach the host:
-
-```bash
-# Test TCP connection
-pingpong ping --conn-type tcp --addr <host-ip> --port 25565
-
-# Test UDP connection
-pingpong ping --conn-type udp --addr <host-ip> --port 27015
-```
-
-If successful, you'll see a "Successfully connected" message and receive a "pong" response.
-
-## Supported Protocols
-
-- **TCP**: Reliable connection-oriented protocol (most common for game servers)
-- **UDP**: Fast connectionless protocol (used by many real-time games)
-
-## Common Use Cases
-
-### Minecraft Server
-```bash
-# Host
-pingpong listen --conn-type tcp --port 25565
-
-# Tester
-pingpong ping --conn-type tcp --addr 203.0.113.42 --port 25565
-```
-
-### Valheim Server
-```bash
-# Host
+# UDP (Valheim, real-time games)
 pingpong listen --conn-type udp --port 2456
+```
 
-# Tester
+### Tester (Client)
+
+```bash
+# TCP
+pingpong ping --conn-type tcp --addr 203.0.113.42 --port 25565
+
+# UDP
 pingpong ping --conn-type udp --addr 203.0.113.42 --port 2456
 ```
 
-## Troubleshooting
+## Common Game Ports
 
-**Connection fails?**
-- Verify port forwarding is configured on the router
-- Check firewall settings on both host and tester machines
-- Ensure you're using the host's public IP (not local network IP)
-- Confirm the correct protocol (TCP vs UDP) is being used
-- Some ISPs block certain ports or use CGNAT which prevents port forwarding
+| Game | Port | Protocol |
+|------|------|----------|
+| Minecraft | 25565 | TCP |
+| Valheim | 2456-2458 | UDP |
+| Terraria | 7777 | TCP |
+| CS2 | 27015 | UDP |
 
-**How to find your public IP?**
-```bash
-curl ifconfig.me
-```
+## Documentation
+
+See the [full documentation](https://gigurra.github.io/pingpong/) for troubleshooting and setup guides.
 
 ## License
 
 MIT
-
-## Contributing
-
-Pull requests are welcome! Feel free to open an issue if you encounter any problems.

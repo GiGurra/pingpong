@@ -1,0 +1,45 @@
+site_name: pingpong
+site_url: https://gigurra.github.io/pingpong/
+site_description: Simple CLI tool to test port forwarding for multiplayer gaming
+
+repo_name: GiGurra/pingpong
+repo_url: https://github.com/GiGurra/pingpong
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: deep-purple
+      accent: purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep-purple
+      accent: purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - admonition
+  - pymdownx.details
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Guide:
+      - Getting Started: guide/getting-started.md
+      - Port Forwarding Setup: guide/port-forwarding.md
+      - Game Examples: guide/games.md
+      - Troubleshooting: guide/troubleshooting.md
