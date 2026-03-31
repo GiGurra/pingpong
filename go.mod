@@ -4,7 +4,7 @@ go 1.25
 
 require (
 	github.com/GiGurra/boa v0.3.32
-	github.com/spf13/cobra v1.10.1
+	github.com/spf13/cobra v1.10.2
 )
 
 require (
