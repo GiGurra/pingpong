@@ -3,7 +3,7 @@ module github.com/gigurra/pingpong
 go 1.25
 
 require (
-	github.com/GiGurra/boa v0.4.8
+	github.com/GiGurra/boa v0.4.9
 	github.com/spf13/cobra v1.10.2
 )
 
